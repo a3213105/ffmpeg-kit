@@ -85,7 +85,7 @@
 #include "libavutil/parseutils.h"
 #include "libavutil/timecode.h"
 #include "libavutil/timestamp.h"
-#include "libavdevice/avdevice.h"
+// #include "libavdevice/avdevice.h"
 #include "libswscale/swscale.h"
 #include "libswresample/swresample.h"
 #include "fftools_cmdutils.h"
@@ -247,7 +247,7 @@ typedef enum {
     SECTION_ID_SUBTITLE,
 } SectionID;
 
-__thread static struct section sections[] = {
+static __thread struct section sections[] = {
     [SECTION_ID_CHAPTERS] =           { SECTION_ID_CHAPTERS, "chapters", SECTION_FLAG_IS_ARRAY, { SECTION_ID_CHAPTER, -1 } },
     [SECTION_ID_CHAPTER] =            { SECTION_ID_CHAPTER, "chapter", 0, { SECTION_ID_CHAPTER_TAGS, -1 } },
     [SECTION_ID_CHAPTER_TAGS] =       { SECTION_ID_CHAPTER_TAGS, "tags", SECTION_FLAG_HAS_VARIABLE_FIELDS, { -1 }, .element_name = "tag", .unique_name = "chapter_tags" },
@@ -3587,7 +3587,7 @@ static void ffprobe_show_library_versions(WriterContext *w)
     SHOW_LIB_VERSION(avutil,     AVUTIL);
     SHOW_LIB_VERSION(avcodec,    AVCODEC);
     SHOW_LIB_VERSION(avformat,   AVFORMAT);
-    SHOW_LIB_VERSION(avdevice,   AVDEVICE);
+    // SHOW_LIB_VERSION(avdevice,   AVDEVICE);
     SHOW_LIB_VERSION(avfilter,   AVFILTER);
     SHOW_LIB_VERSION(swscale,    SWSCALE);
     SHOW_LIB_VERSION(swresample, SWRESAMPLE);
@@ -4130,12 +4130,12 @@ int ffprobe_execute(int argc, char **argv)
         { "cpucount",    HAS_ARG | OPT_EXPERT, { .func_arg = opt_cpucount },     "force specific cpu count", "count" },
         { "hide_banner", OPT_BOOL | OPT_EXPERT, {&hide_banner},     "do not show program banner", "hide_banner" },
 
-        #if CONFIG_AVDEVICE
-            { "sources"    , OPT_EXIT | HAS_ARG, { .func_arg = show_sources },
-              "list sources of the input device", "device" },
-            { "sinks"      , OPT_EXIT | HAS_ARG, { .func_arg = show_sinks },
-              "list sinks of the output device", "device" },
-        #endif
+        // #if CONFIG_AVDEVICE
+        //     { "sources"    , OPT_EXIT | HAS_ARG, { .func_arg = show_sources },
+        //       "list sources of the input device", "device" },
+        //     { "sinks"      , OPT_EXIT | HAS_ARG, { .func_arg = show_sinks },
+        //       "list sinks of the output device", "device" },
+        // #endif
 
         { "f", HAS_ARG, {.func_arg = opt_format}, "force format", "format" },
         { "unit", OPT_BOOL, {&show_value_unit}, "show unit of the displayed values" },
@@ -4209,9 +4209,9 @@ int ffprobe_execute(int argc, char **argv)
         ffprobe_options = options;
         parse_loglevel(argc, argv, options);
         avformat_network_init();
-    #if CONFIG_AVDEVICE
-        avdevice_register_all();
-    #endif
+    // #if CONFIG_AVDEVICE
+    //     avdevice_register_all();
+    // #endif
 
         show_banner(argc, argv, options);
         parse_options(NULL, argc, argv, options, opt_input_file);

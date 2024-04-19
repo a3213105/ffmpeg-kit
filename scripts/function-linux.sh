@@ -148,7 +148,7 @@ create_linux_bundle() {
   install_pkg_config_file "libavformat.pc"
   install_pkg_config_file "libswresample.pc"
   install_pkg_config_file "libswscale.pc"
-  install_pkg_config_file "libavdevice.pc"
+  # install_pkg_config_file "libavdevice.pc"
   install_pkg_config_file "libavfilter.pc"
   install_pkg_config_file "libavcodec.pc"
   install_pkg_config_file "libavutil.pc"
@@ -237,7 +237,7 @@ get_common_cflags() {
 get_arch_specific_cflags() {
   case ${ARCH} in
   x86-64)
-    echo "-target $(get_target) -march=x86-64 -msse4.2 -mpopcnt -m64 -DFFMPEG_KIT_X86_64"
+    echo "-march=x86-64 -msse4.2 -mpopcnt -m64 -DFFMPEG_KIT_X86_64"
     ;;
   esac
 }
@@ -322,14 +322,14 @@ get_cxxflags() {
   fi
 
   local BUILD_DATE="-DFFMPEG_KIT_BUILD_DATE=$(date +%Y%m%d 2>>"${BASEDIR}"/build.log)"
-  local COMMON_FLAGS="-stdlib=libstdc++ -std=c++11 ${OPTIMIZATION_FLAGS} ${BUILD_DATE} $(get_arch_specific_cflags)"
+  local COMMON_FLAGS="-std=c++11 ${OPTIMIZATION_FLAGS} ${BUILD_DATE} $(get_arch_specific_cflags)"
 
   case $1 in
   ffmpeg)
     if [[ -z ${FFMPEG_KIT_DEBUG} ]]; then
-      echo "${LINK_TIME_OPTIMIZATION_FLAGS} -stdlib=libstdc++ -std=c++11 -O2 -ffunction-sections -fdata-sections"
+      echo "${LINK_TIME_OPTIMIZATION_FLAGS} -std=c++11 -O2 -ffunction-sections -fdata-sections"
     else
-      echo "${FFMPEG_KIT_DEBUG} -stdlib=libstdc++ -std=c++11"
+      echo "${FFMPEG_KIT_DEBUG} -std=c++11"
     fi
     ;;
   ffmpeg-kit)
@@ -349,7 +349,7 @@ get_common_linked_libraries() {
 
   case $1 in
   chromaprint | ffmpeg-kit | kvazaar | srt | zimg)
-    echo "-stdlib=libstdc++ -lstdc++ -lc -lm ${COMMON_LIBRARIES}"
+    echo "-lstdc++ -lc -lm ${COMMON_LIBRARIES}"
     ;;
   *)
     echo "-lc -lm -ldl ${COMMON_LIBRARIES}"
@@ -395,7 +395,7 @@ get_ldflags() {
   fi
   local COMMON_LINKED_LIBS=$(get_common_linked_libraries "$1")
 
-  echo "${ARCH_FLAGS} ${OPTIMIZATION_FLAGS} ${COMMON_LINKED_LIBS} ${LLVM_CONFIG_LDFLAGS} -Wl,--hash-style=both -fuse-ld=lld"
+  echo "${ARCH_FLAGS} ${OPTIMIZATION_FLAGS} ${COMMON_LINKED_LIBS} ${LLVM_CONFIG_LDFLAGS} -Wl,--hash-style=both"
 }
 
 create_mason_cross_file() {

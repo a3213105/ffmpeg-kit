@@ -113,7 +113,7 @@
 #endif
 
 #include "libavformat/avformat.h"
-#include "libavdevice/avdevice.h"
+// #include "libavdevice/avdevice.h"
 #include "libswresample/swresample.h"
 #include "libavutil/opt.h"
 #include "libavutil/channel_layout.h"
@@ -4423,12 +4423,12 @@ int ffmpeg_execute(int argc, char **argv)
         { "cpucount",    HAS_ARG | OPT_EXPERT, { .func_arg = opt_cpucount },     "force specific cpu count", "count" },
         { "hide_banner", OPT_BOOL | OPT_EXPERT, {&hide_banner},     "do not show program banner", "hide_banner" },
 
-        #if CONFIG_AVDEVICE
-            { "sources"    , OPT_EXIT | HAS_ARG, { .func_arg = show_sources },
-              "list sources of the input device", "device" },
-            { "sinks"      , OPT_EXIT | HAS_ARG, { .func_arg = show_sinks },
-              "list sinks of the output device", "device" },
-        #endif
+        // #if CONFIG_AVDEVICE
+        //     { "sources"    , OPT_EXIT | HAS_ARG, { .func_arg = show_sources },
+        //       "list sources of the input device", "device" },
+        //     { "sinks"      , OPT_EXIT | HAS_ARG, { .func_arg = show_sinks },
+        //       "list sinks of the output device", "device" },
+        // #endif
 
         { "f",              HAS_ARG | OPT_STRING | OPT_OFFSET |
                             OPT_INPUT | OPT_OUTPUT,                      { .off       = OFFSET(format) },
@@ -4873,9 +4873,9 @@ int ffmpeg_execute(int argc, char **argv)
         av_log_set_flags(AV_LOG_SKIP_REPEATED);
         parse_loglevel(argc, argv, options);
 
-    #if CONFIG_AVDEVICE
-        avdevice_register_all();
-    #endif
+    // #if CONFIG_AVDEVICE
+    //     avdevice_register_all();
+    // #endif
         avformat_network_init();
 
         show_banner(argc, argv, options);

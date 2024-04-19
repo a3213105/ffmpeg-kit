@@ -39,19 +39,19 @@
 
 #include "fftools_cmdutils.h"
 
-#if CONFIG_AVDEVICE
-/**
- * Print a listing containing autodetected sinks of the output device.
- * Device name with options may be passed as an argument to limit results.
- */
-int show_sinks(void *optctx, const char *opt, const char *arg);
+// #if CONFIG_AVDEVICE
+// /**
+//  * Print a listing containing autodetected sinks of the output device.
+//  * Device name with options may be passed as an argument to limit results.
+//  */
+// int show_sinks(void *optctx, const char *opt, const char *arg);
 
-/**
- * Print a listing containing autodetected sources of the input device.
- * Device name with options may be passed as an argument to limit results.
- */
-int show_sources(void *optctx, const char *opt, const char *arg);
-#endif
+// /**
+//  * Print a listing containing autodetected sources of the input device.
+//  * Device name with options may be passed as an argument to limit results.
+//  */
+// int show_sources(void *optctx, const char *opt, const char *arg);
+// #endif
 
 /**
  * Print the license of the program to stdout. The license depends on

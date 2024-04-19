@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "${BASEDIR}"
 source "${BASEDIR}"/scripts/source.sh
 
 get_arch_name() {

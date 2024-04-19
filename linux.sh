@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export NO_LINK_TIME_OPTIMIZATION=1
 # LOAD INITIAL SETTINGS
 export BASEDIR="$(pwd)"
 export FFMPEG_KIT_BUILD_TYPE="linux"
